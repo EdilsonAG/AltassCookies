@@ -1,0 +1,134 @@
+/* ─── Design Tokens ──────────────────────────────────────────────────────────── */
+:root {
+  --cream: #F5EFE0;
+  --cream-dark: #EDE4CE;
+  --brown: #3D1F0A;
+  --brown-mid: #7B4A1E;
+  --brown-light: #C4843A;
+  --brown-accent: #A0612A;
+  --sand: #D4B896;
+  --white: #FDFAF5;
+  --text-main: #2A1506;
+  --text-muted: #7B5C3A;
+  --shadow: rgba(61, 31, 10, 0.12);
+  --shadow-strong: rgba(61, 31, 10, 0.25);
+  --radius: 16px;
+  --radius-sm: 8px;
+  --transition: 0.25s ease;
+}
+
+/* ─── Reset ──────────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background-color: var(--cream);
+  color: var(--text-main);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { display: block; max-width: 100%; }
+
+a { color: inherit; text-decoration: none; }
+
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+
+/* ─── Typography ─────────────────────────────────────────────────────────────── */
+h1, h2, h3, h4 {
+  font-family: 'Playfair Display', serif;
+  line-height: 1.15;
+}
+
+/* ─── Utilities ──────────────────────────────────────────────────────────────── */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--brown);
+  color: var(--cream);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  padding: 12px 24px;
+  border-radius: 50px;
+  transition: all var(--transition);
+  border: 2px solid var(--brown);
+}
+.btn-primary:hover {
+  background: var(--brown-mid);
+  border-color: var(--brown-mid);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px var(--shadow-strong);
+}
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: var(--brown);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  padding: 12px 24px;
+  border-radius: 50px;
+  border: 2px solid var(--brown);
+  transition: all var(--transition);
+}
+.btn-outline:hover {
+  background: var(--brown);
+  color: var(--cream);
+}
+
+/* ─── Scrollbar ──────────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--cream-dark); }
+::-webkit-scrollbar-thumb { background: var(--sand); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--brown-light); }
+
+/* ─── Animations ─────────────────────────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.fade-up { animation: fadeUp 0.5s ease forwards; }
+
+/* ─── Toast ──────────────────────────────────────────────────────────────────── */
+.toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.toast {
+  background: var(--brown);
+  color: var(--cream);
+  padding: 14px 20px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 500;
+  animation: fadeUp 0.3s ease;
+  box-shadow: 0 4px 16px var(--shadow-strong);
+}
+
+.toast.success { background: #4A7C59; }
+.toast.error   { background: #8B3A3A; }

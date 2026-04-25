@@ -1,0 +1,33 @@
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--cream);
+  border-bottom: 1px solid var(--cream-dark);
+  box-shadow: 0 2px 12px var(--shadow);
+}
+.navbar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 70px;
+}
+.navbar__logo { display: flex; flex-direction: column; line-height: 1; }
+.navbar__logo-text { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 20px; color: var(--brown); }
+.navbar__logo-sub { font-size: 10px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: var(--brown-light); }
+.navbar__links { display: flex; gap: 32px; align-items: center; }
+.navbar__link { font-size: 15px; font-weight: 500; color: var(--text-muted); transition: color var(--transition); position: relative; }
+.navbar__link::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: var(--brown-light); transition: width var(--transition); border-radius: 2px; }
+.navbar__link:hover, .navbar__link.active { color: var(--brown); }
+.navbar__link:hover::after, .navbar__link.active::after { width: 100%; }
+.navbar__actions { display: flex; align-items: center; gap: 16px; }
+.navbar__cart { position: relative; display: flex; align-items: center; color: var(--brown); transition: color var(--transition); }
+.navbar__cart:hover { color: var(--brown-light); }
+.navbar__cart-badge { position: absolute; top: -8px; right: -8px; background: var(--brown-light); color: var(--white); font-size: 11px; font-weight: 700; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+.navbar__btn-login { padding: 8px 20px; font-size: 14px; }
+.navbar__hamburger { display: flex; color: var(--brown); }
+.navbar__mobile { display: flex; flex-direction: column; gap: 4px; padding: 12px 24px 24px; background: var(--cream); border-top: 1px solid var(--cream-dark); animation: fadeIn 0.2s ease; }
+.navbar__mobile-link { padding: 12px 0; font-size: 17px; font-weight: 500; color: var(--text-main); border-bottom: 1px solid var(--cream-dark); }
+.desktop-only { display: flex; }
+.mobile-only { display: none; }
+@media (max-width: 768px) { .desktop-only { display: none !important; } .mobile-only { display: flex !important; } }

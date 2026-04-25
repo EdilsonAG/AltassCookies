@@ -1,0 +1,43 @@
+.page-produtos { padding: 60px 0 100px; }
+.page-header { text-align: center; margin-bottom: 40px; }
+.page-header h1 { font-size: 42px; color: var(--brown); margin-bottom: 8px; }
+.page-header p { color: var(--text-muted); font-size: 16px; }
+.search-bar {
+  position: relative;
+  max-width: 480px;
+  margin: 0 auto 48px;
+}
+.search-bar__icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+}
+.search-bar__input {
+  width: 100%;
+  padding: 14px 16px 14px 44px;
+  border: 2px solid var(--cream-dark);
+  border-radius: 50px;
+  font-size: 15px;
+  font-family: 'DM Sans', sans-serif;
+  background: var(--white);
+  color: var(--text-main);
+  outline: none;
+  transition: border-color var(--transition);
+}
+.search-bar__input:focus { border-color: var(--brown-light); }
+.produtos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 28px;
+}
+.skeleton-card {
+  height: 360px;
+  border-radius: var(--radius);
+  background: linear-gradient(90deg, var(--cream-dark) 25%, var(--sand) 50%, var(--cream-dark) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+@keyframes shimmer { to { background-position: -200% 0; } }
+.empty-state { text-align: center; padding: 80px 0; color: var(--text-muted); font-size: 17px; }
