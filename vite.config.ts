@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  base: '/altass-cookies/',
+  base: '/', // ← muda para / no dev
   server: {
     proxy: {
       '/api': {
@@ -11,6 +11,10 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ''),
       },
+      '/uploads': {
+        target: 'http://localhost:8080',
+        changeOrigin: true,
+      }
     },
   },
 })

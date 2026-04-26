@@ -20,11 +20,13 @@
   text-align: center;
   margin-bottom: 28px;
 }
+
 .login__header h1 {
   font-size: 26px;
   color: var(--brown);
   margin-bottom: 6px;
 }
+
 .login__header p {
   font-size: 14px;
   color: var(--text-muted);
@@ -37,6 +39,7 @@
   padding: 4px;
   margin-bottom: 28px;
 }
+
 .login__tabs button {
   flex: 1;
   padding: 9px;
@@ -46,6 +49,7 @@
   color: var(--text-muted);
   transition: all var(--transition);
 }
+
 .login__tabs button.active {
   background: var(--brown);
   color: var(--cream);
@@ -62,6 +66,7 @@
   flex-direction: column;
   gap: 6px;
 }
+
 .form-group label {
   font-size: 13px;
   font-weight: 600;
@@ -69,6 +74,7 @@
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
+
 .form-group input,
 .form-group select {
   padding: 12px 16px;
@@ -81,6 +87,7 @@
   transition: border-color var(--transition);
   outline: none;
 }
+
 .form-group input:focus,
 .form-group select:focus {
   border-color: var(--brown-light);
@@ -101,11 +108,24 @@
   padding: 14px;
   margin-top: 4px;
 }
-.login__submit:disabled { opacity: 0.6; cursor: not-allowed; }
 
-.spin { animation: spin 1s linear infinite; }
-@keyframes spin { to { transform: rotate(360deg); } }
+.login__submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
 
 @media (max-width: 480px) {
-  .login__card { padding: 32px 24px; }
+  .login__card {
+    padding: 32px 24px;
+  }
 }

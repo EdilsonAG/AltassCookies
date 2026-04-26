@@ -19,7 +19,7 @@ export default function Home() {
 
   return (
     <main>
-      {/* ── Hero ─────────────────────────────────────────────────────────── */}
+      {/*  Hero  */}
       <section className="hero">
         <div className="hero__bg-circles" aria-hidden />
         <div className="container hero__inner">
@@ -56,7 +56,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Diferenciais ─────────────────────────────────────────────────── */}
+      {/*  Diferenciais  */}
       <section className="features container">
         {[
           { icon: <Cookie size={28}/>, title: 'Receita artesanal', desc: 'Cada cookie feito à mão com carinho.' },
@@ -71,7 +71,7 @@ export default function Home() {
         ))}
       </section>
 
-      {/* ── Produtos em destaque ─────────────────────────────────────────── */}
+      {/*  Produtos em destaque  */}
       <section className="section-produtos container">
         <header className="section-header">
           <h2>Destaques</h2>
@@ -93,7 +93,7 @@ export default function Home() {
         )}
       </section>
 
-      {/* ── CTA banner ───────────────────────────────────────────────────── */}
+      {/*  CTA banner  */}
       <section className="cta-banner">
         <div className="container cta-banner__inner">
           <h2>Pronto para se apaixonar?</h2>

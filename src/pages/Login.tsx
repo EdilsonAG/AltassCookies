@@ -15,7 +15,65 @@ export default function Login() {
 
 
     // aqui vai a logica de login
-     alert(`Login com: ${email}`)
+    alert(`Login com: ${email}`)
+  }
+
+  //   function handleLogin() {
+  //   const state = Math.random().toString(36).substring(7)
+  //   localStorage.setItem('oauth_state', state)
+
+  //   window.location.href = 
+  //     `http://localhost:8080/oauth2/authorize` +
+  //     `?response_type=code` +
+  //     `&client_id=food` +
+  //     `&redirect_uri=http://localhost:5173/callback` +
+  //     `&scope=read` +
+  //     `&state=${state}`
+  // }
+
+
+  async function handleLogin() {
+    const state = Math.random().toString(36).substring(7)
+    localStorage.setItem('oauth_state', state)
+
+    // 1. Gera o codeVerifier
+    const codeVerifier = generateCodeVerifier()
+    localStorage.setItem('codeVerifier', codeVerifier)
+
+    // 2. Calcula o codeChallenge S256
+    const codeChallenge = await generateCodeChallenge(codeVerifier)
+
+    // 3. Redireciona com tudo
+    window.location.href =
+      `http://localhost:8080/oauth2/authorize` +
+      `?response_type=code` +
+      `&client_id=web` +
+      `&redirect_uri=https://oauth.pstmn.io/v1/callback` +
+      `&scope=write` +
+      `&state=${state}` +
+      `&code_challenge=${codeChallenge}` +
+      `&code_challenge_method=S256`
+  }
+
+  // Gera string aleatória
+  function generateCodeVerifier(): string {
+    const array = new Uint8Array(32)
+    crypto.getRandomValues(array)
+    return btoa(String.fromCharCode(...array))
+      .replace(/=/g, '')
+      .replace(/\+/g, '-')
+      .replace(/\//g, '_')
+  }
+
+  // Calcula SHA256 e converte para Base64URL
+  async function generateCodeChallenge(verifier: string): Promise<string> {
+    const encoder = new TextEncoder()
+    const data = encoder.encode(verifier)
+    const hash = await crypto.subtle.digest('SHA-256', data)
+    return btoa(String.fromCharCode(...new Uint8Array(hash)))
+      .replace(/=/g, '')
+      .replace(/\+/g, '-')
+      .replace(/\//g, '_')
   }
 
   return (
@@ -25,7 +83,7 @@ export default function Login() {
         <h1>Bem-vindo de volta!</h1>
         <p className="auth-card__sub">Entre na sua conta para continuar</p>
 
-        <form onSubmit={handleSubmit} className="auth-form">
+        <form onSubmit={handleLogin} className="auth-form">
           <div className="auth-form__field">
             <label htmlFor="email">E-mail</label>
             <input

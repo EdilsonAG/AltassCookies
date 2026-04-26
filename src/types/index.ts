@@ -1,4 +1,4 @@
-// ─── Produto ─────────────────────────────────────────────────────────────────
+//  Produto 
 export interface ProdutoImagemResponse {
   id: number
   url: string
@@ -11,7 +11,7 @@ export interface Produto {
   produtoImagemResponses: ProdutoImagemResponse[]
 }
 
-// ─── Cliente ──────────────────────────────────────────────────────────────────
+//  Cliente 
 export interface Cliente {
   nome: string
   email: string
@@ -24,7 +24,7 @@ export interface ClienteResponse {
   email: string
 }
 
-// ─── Carrinho ─────────────────────────────────────────────────────────────────
+//  Carrinho 
 export interface ItemCarrinhoResponse {
   id: number
   produto: Produto
@@ -36,7 +36,7 @@ export interface CarrinhoResponse {
   itemCarrinho: ItemCarrinhoResponse[]
 }
 
-// ─── Pedido ───────────────────────────────────────────────────────────────────
+//  Pedido 
 export type StatusPedido = 'CRIADO' | 'PAGO' | 'CANCELADO' | 'ENVIADO' | 'ENTREGUE'
 
 export interface ItemPedidoResponse {
@@ -55,7 +55,7 @@ export interface PedidoResponse {
   clientSecret: string
 }
 
-// ─── Pagamento ────────────────────────────────────────────────────────────────
+//  Pagamento 
 export interface PagamentoRequest {
   tipo: string
   pedidoId: number

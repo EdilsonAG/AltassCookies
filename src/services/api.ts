@@ -12,16 +12,19 @@ import type {
 const BASE_URL = '/api'
 
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
+  const token = localStorage.getItem('access_token')
   const res = await fetch(`${BASE_URL}${path}`, {
+    credentials: 'include',  
+    ...(token ? { Authorization: `Bearer ${token}` } : {}),
     headers: { 'Content-Type': 'application/json', ...options?.headers },
     ...options,
   })
-  if (!res.ok) throw new Error(`Erro ${res.status}: ${res.statusText}`)
+  if (!res.ok) throw new Error(`Erro ${res.status}`)
   if (res.status === 204) return undefined as T
   return res.json()
 }
 
-// ─── Produtos ─────────────────────────────────────────────────────────────────
+//  Produtos
 export const produtoService = {
   listar: () => request<Produto[]>('/produto'),
 
@@ -32,7 +35,7 @@ export const produtoService = {
     fetch(`${BASE_URL}/produto/${produtoId}`, { method: 'PATCH', body: formData }).then(r => r.json()),
 }
 
-// ─── Carrinho ─────────────────────────────────────────────────────────────────
+//  Carrinho 
 export const carrinhoService = {
   buscar: () => request<CarrinhoResponse>('/carrinho'),
 
@@ -49,7 +52,7 @@ export const carrinhoService = {
     }),
 }
 
-// ─── Pedidos ──────────────────────────────────────────────────────────────────
+//  Pedidos
 export const pedidoService = {
   listar: () => request<PedidoResponse[]>('/pedido'),
 
@@ -61,7 +64,7 @@ export const pedidoService = {
     }),
 }
 
-// ─── Pagamento ────────────────────────────────────────────────────────────────
+//  Pagamento 
 export const pagamentoService = {
   pagar: (body: PagamentoRequest) =>
     request<PagamentoResponse>('/pagamento', {
@@ -70,7 +73,7 @@ export const pagamentoService = {
     }),
 }
 
-// ─── Cliente ──────────────────────────────────────────────────────────────────
+//  Cliente 
 export const clienteService = {
   cadastrar: (body: Cliente) =>
     request<ClienteResponse>('/cliente', { method: 'POST', body: JSON.stringify(body) }),
@@ -82,4 +85,8 @@ export const clienteService = {
       method: 'PATCH',
       body: JSON.stringify(campos),
     }),
+
+    
 }
+
+

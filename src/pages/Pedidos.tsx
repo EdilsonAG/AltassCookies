@@ -4,11 +4,11 @@ import type { PedidoResponse } from '../types'
 import './Pedidos.css'
 
 const statusLabel: Record<string, { label: string; color: string }> = {
-  CRIADO:    { label: 'Criado',    color: '#7B5C3A' },
-  PAGO:      { label: 'Pago',      color: '#4A7C59' },
+  CRIADO: { label: 'Criado', color: '#7B5C3A' },
+  PAGO: { label: 'Pago', color: '#4A7C59' },
   CANCELADO: { label: 'Cancelado', color: '#8B3A3A' },
-  ENVIADO:   { label: 'Enviado',   color: '#2A6090' },
-  ENTREGUE:  { label: 'Entregue',  color: '#4A7C59' },
+  ENVIADO: { label: 'Enviado', color: '#2A6090' },
+  ENTREGUE: { label: 'Entregue', color: '#4A7C59' },
 }
 
 export default function Pedidos() {
