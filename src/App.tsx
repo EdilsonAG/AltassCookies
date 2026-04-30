@@ -20,7 +20,6 @@ export default function App() {
         <Navbar />
         <Routes>
           <Route path="/callback" element={<Callback />} />
-
           <Route path="/" element={<Home />} />
           <Route path="/produtos" element={<Produtos />} />
           <Route path="/carrinho" element={<Carrinho />} />

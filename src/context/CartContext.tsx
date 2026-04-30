@@ -26,6 +26,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       setLoading(true)
       const data = await carrinhoService.buscar()
       setCarrinho(data)
+      
     } catch {
       // Carrinho vazio ou usuário não logado
       setCarrinho(null)
@@ -33,7 +34,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       setLoading(false)
     }
   }, [])
-
+  
   useEffect(() => {
     recarregar()
   }, [recarregar])

@@ -1,41 +1,46 @@
 import type {
-  Produto,
-  CarrinhoResponse,
-  PedidoResponse,
-  PagamentoRequest,
-  PagamentoResponse,
-  Cliente,
-  ClienteResponse,
+  Produto, CarrinhoResponse, PedidoResponse,
+  PagamentoRequest, PagamentoResponse, Cliente, ClienteResponse,
 } from '../types'
 
-// Troca '/api' por 'http://localhost:8080' se não estiver usando o proxy do vite
-const BASE_URL = '/api'
+const BASE_URL = 'http://localhost:8080'
 
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
-  const token = localStorage.getItem('access_token')
   const res = await fetch(`${BASE_URL}${path}`, {
-    credentials: 'include',  
-    ...(token ? { Authorization: `Bearer ${token}` } : {}),
-    headers: { 'Content-Type': 'application/json', ...options?.headers },
     ...options,
+    credentials: 'include', // ✅ cookie vai automaticamente — sem token manual
+    headers: {
+      'Content-Type': 'application/json',
+      ...options?.headers,
+    },
   })
-  if (!res.ok) throw new Error(`Erro ${res.status}`)
+
   if (res.status === 204) return undefined as T
+  if (!res.ok) throw new Error(`Erro ${res.status}`)
   return res.json()
 }
 
-//  Produtos
+// Produtos
 export const produtoService = {
   listar: () => request<Produto[]>('/produto'),
 
+  // FormData não usa Content-Type: application/json, por isso fetch separado
   criar: (formData: FormData) =>
-    fetch(`${BASE_URL}/produto`, { method: 'POST', body: formData }).then(r => r.json()),
+    fetch(`${BASE_URL}/produto`, {
+      method: 'POST',
+      credentials: 'include', 
+      body: formData,
+    }).then(r => r.json()),
 
   atualizarImagem: (produtoId: number, formData: FormData) =>
-    fetch(`${BASE_URL}/produto/${produtoId}`, { method: 'PATCH', body: formData }).then(r => r.json()),
+    fetch(`${BASE_URL}/produto/${produtoId}`, {
+      method: 'PATCH',
+      credentials: 'include',  
+      body: formData,
+    }).then(r => r.json()),
 }
 
-//  Carrinho 
+// Carrinho
 export const carrinhoService = {
   buscar: () => request<CarrinhoResponse>('/carrinho'),
 
@@ -52,7 +57,7 @@ export const carrinhoService = {
     }),
 }
 
-//  Pedidos
+// Pedidos
 export const pedidoService = {
   listar: () => request<PedidoResponse[]>('/pedido'),
 
@@ -64,7 +69,7 @@ export const pedidoService = {
     }),
 }
 
-//  Pagamento 
+// Pagamento
 export const pagamentoService = {
   pagar: (body: PagamentoRequest) =>
     request<PagamentoResponse>('/pagamento', {
@@ -73,7 +78,7 @@ export const pagamentoService = {
     }),
 }
 
-//  Cliente 
+// Cliente
 export const clienteService = {
   cadastrar: (body: Cliente) =>
     request<ClienteResponse>('/cliente', { method: 'POST', body: JSON.stringify(body) }),
@@ -85,8 +90,4 @@ export const clienteService = {
       method: 'PATCH',
       body: JSON.stringify(campos),
     }),
-
-    
 }
-
-

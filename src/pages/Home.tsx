@@ -5,12 +5,15 @@ import { produtoService } from '../services/api'
 import type { Produto } from '../types'
 import ProdutoCard from '../components/ProdutoCard'
 import './Home.css'
+import { useCart } from '../context/CartContext'
 
 export default function Home() {
+  const {recarregar} = useCart();
   const [produtos, setProdutos] = useState<Produto[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    recarregar()
     produtoService.listar()
       .then(data => setProdutos(data.slice(0, 4))) // exibe só os 4 primeiros na home
       .catch(() => setProdutos([]))
