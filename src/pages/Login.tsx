@@ -225,12 +225,17 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import './Auth.css'
+import { useAuth } from '../context/AuthContext'
+
+
 
 export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setSenha] = useState('')
   const [erro, setErro] = useState('')
   const [loading, setLoading] = useState(false)
+  const { login } = useAuth()
+
 
   function generateCodeVerifier(): string {
     const array = new Uint8Array(32)
@@ -263,6 +268,8 @@ export default function Login() {
 
       // Spring retorna 302 quando o login deu certo
       if (res.ok) {
+        login({ nome: 'João', email: 'joao@email.com' })
+
         // 2. Gera PKCE
         const verifier = generateCodeVerifier()
         sessionStorage.setItem('code_verifier', verifier)

@@ -2,18 +2,21 @@ import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { ShoppingCart, Menu, X } from 'lucide-react'
 import { useCart } from '../context/CartContext'
+import { useAuth } from '../context/AuthContext'
+
 import './Navbar.css'
 
 export default function Navbar() {
   const { totalItens } = useCart()
   const [mobileOpen, setMobileOpen] = useState(false)
   const location = useLocation()
+  const { user } = useAuth()
 
   const links = [
-    { label: 'Início',    to: '/' },
-    { label: 'Produtos',  to: '/produtos' },
-    { label: 'Sobre',     to: '/sobre' },
-    { label: 'Contato',   to: '/contato' },
+    { label: 'Início', to: '/' },
+    { label: 'Produtos', to: '/produtos' },
+    { label: 'Sobre', to: '/sobre' },
+    { label: 'Contato', to: '/contato' },
   ]
 
   return (
@@ -47,9 +50,12 @@ export default function Navbar() {
             )}
           </Link>
 
-          <Link to="/login" className="btn-outline navbar__btn-login desktop-only">
-            Entrar
-          </Link>
+          {/* substitui o <Link to="/login" ...> */}
+          {!user && (
+            <Link to="/login" className="btn-outline navbar__btn-login desktop-only">
+              Entrar
+            </Link>
+          )}
 
           <button
             className="navbar__hamburger mobile-only"
@@ -74,9 +80,11 @@ export default function Navbar() {
               {link.label}
             </Link>
           ))}
-          <Link to="/login" className="btn-primary" onClick={() => setMobileOpen(false)}>
-            Entrar
-          </Link>
+          {!user && (
+            <Link to="/login" className="btn-primary" onClick={() => setMobileOpen(false)}>
+              Entrar
+            </Link>
+          )}
         </div>
       )}
     </header>
