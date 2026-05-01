@@ -13,11 +13,16 @@ async function request<T>(path: string, options?: RequestInit): Promise<T> {
       'Content-Type': 'application/json',
       ...options?.headers,
     },
-  })
+  }
+  )
 
-  if (res.status === 204) return undefined as T
   if (!res.ok) throw new Error(`Erro ${res.status}`)
-  return res.json()
+  if (res.status === 204 || res.headers.get('content-length') === '0') {
+    return undefined as T
+  } return res.json()
+
+  const text = await res.text()
+  return (text ? JSON.parse(text) : undefined) as T
 }
 
 // Produtos
@@ -28,14 +33,14 @@ export const produtoService = {
   criar: (formData: FormData) =>
     fetch(`${BASE_URL}/produto`, {
       method: 'POST',
-      credentials: 'include', 
+      credentials: 'include',
       body: formData,
     }).then(r => r.json()),
 
   atualizarImagem: (produtoId: number, formData: FormData) =>
     fetch(`${BASE_URL}/produto/${produtoId}`, {
       method: 'PATCH',
-      credentials: 'include',  
+      credentials: 'include',
       body: formData,
     }).then(r => r.json()),
 }
@@ -90,4 +95,16 @@ export const clienteService = {
       method: 'PATCH',
       body: JSON.stringify(campos),
     }),
+
+  login: (email: string, senha: string) =>
+    request<void>('/login', {
+      method: 'POST',
+      body: JSON.stringify({ email, senha }),
+    }),
+
+  logout: () => request<void>('/logout', { method: 'POST' }),
+
+  meusDados: () => request<ClienteResponse>('/cliente/me'),
+
+
 }

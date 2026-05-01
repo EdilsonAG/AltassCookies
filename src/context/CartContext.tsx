@@ -26,7 +26,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       setLoading(true)
       const data = await carrinhoService.buscar()
       setCarrinho(data)
-      
+
     } catch {
       // Carrinho vazio ou usuário não logado
       setCarrinho(null)
@@ -34,7 +34,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       setLoading(false)
     }
   }, [])
-  
+
   useEffect(() => {
     recarregar()
   }, [recarregar])
@@ -49,11 +49,30 @@ export function CartProvider({ children }: { children: ReactNode }) {
     await recarregar()
   }
 
-  const editarQuantidade = async (idItemCarrinho: number, quantidade: number) => {
-    await carrinhoService.editarItem(idItemCarrinho, quantidade)
-    await recarregar()
-  }
 
+
+  const editarQuantidade = async (idItemCarrinho: number, quantidade: number) => {
+    const snapshot = carrinho
+
+    setCarrinho(prev => {
+      if (!prev) return prev
+      return {
+        ...prev,
+        itemCarrinho: prev.itemCarrinho.map(item =>
+          item.id === idItemCarrinho
+            ? { ...item, quantidade }
+            : item
+        ),
+      }
+    })
+
+    try {
+      await carrinhoService.editarItem(idItemCarrinho, quantidade)
+    } catch (err) {
+      setCarrinho(snapshot)
+      console.error('Falha ao editar quantidade:', err)
+    }
+  }
   const itens = carrinho?.itemCarrinho ?? []
   const totalItens = itens.reduce((acc, item) => acc + item.quantidade, 0)
   const totalPreco = itens.reduce(

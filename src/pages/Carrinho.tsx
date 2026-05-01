@@ -5,10 +5,13 @@ import './Carrinho.css'
 import { useEffect, useState } from 'react'
 
 export default function Carrinho() {
-    const { itens, totalPreco, removerItem, editarQuantidade, loading } = useCart()
+  const { itens, totalPreco, removerItem, editarQuantidade, loading } = useCart()
 
-  
+
   if (loading) return <div className="cart-loading">Carregando carrinho...</div>
+
+
+
 
   if (itens.length === 0) {
     return (
@@ -22,68 +25,7 @@ export default function Carrinho() {
       </main>
     )
   }
-//   const { carrinho, itens, totalPreco, removerItem, editarQuantidade, recarregar } = useCart()
 
-
-//   const [carrinhoResponse, setCarrinho] = useState<CarrinhoResponse | null>()
-//   const [loading, setLoading] = useState(false)
-
-//   interface ProdutoImagemResponse {
-//     id: number
-//     url: string
-//   }
-//   interface Produto {
-//     id: number
-//     nome: string
-//     preco: number | null
-//     produtoImagemResponses: ProdutoImagemResponse[]
-//   }
-//   interface ItemCarrinhoResponse {
-//     id: number
-//     produto: Produto
-//     quantidade: number
-//   }
-
-//   interface CarrinhoResponse {
-//     id: number
-//     itemCarrinho: ItemCarrinhoResponse[]
-//   }
-
-// useEffect(() => {
-//   buscarProduto()
-//     .then(data => setCarrinho(data))
-//     .catch(err => console.error(err))
-// }, [])
-
-//   const buscarProduto = async (): Promise<CarrinhoResponse | null> => {
-//     setLoading(true)  
-//    try{ const res = await fetch(`http://localhost:8080/carrinho`, {
-//       credentials: 'include',
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//     })
-
-//     if (!res.ok) throw new Error(`Erro ${res.status}`)
-//     if (res.status === 204) return null
-
-//     return await res.json()}finally{ setLoading(false)}
-//   }
-
-//   if (loading) return <div className="cart-loading">Carregando carrinho...</div>
-
-//   if (itens.length === 0) {
-//     return (
-//       <main className="cart-empty">
-//         <ShoppingBag size={64} />
-//         <h2>Seu carrinho está vazio</h2>
-//         <p>Adicione alguns cookies deliciosos!</p>
-//         <Link to="/produtos" className="btn-primary">
-//           Ver produtos <ArrowRight size={18} />
-//         </Link>
-//       </main>
-//     )
-//   }
 
   return (
     <main className="page-carrinho">
@@ -100,7 +42,7 @@ export default function Carrinho() {
         <div className="cart-layout">
           {/* Lista de itens */}
           <section className="cart-items">
-{/* 
+            {/* 
             {carrinhoResponse?.itemCarrinho.map(item => (
               <div key={item.id} className="cart-item">
                 <div className="cart-item__img-wrap">
@@ -127,6 +69,7 @@ export default function Carrinho() {
 
                 <div className="cart-item__qty">
                   <button
+                    type="button"
                     onClick={() => editarQuantidade(item.id, item.quantidade - 1)}
                     disabled={item.quantidade <= 1}
                     aria-label="Diminuir"
@@ -135,6 +78,7 @@ export default function Carrinho() {
                   </button>
                   <span>{item.quantidade}</span>
                   <button
+                    type="button"
                     onClick={() => editarQuantidade(item.id, item.quantidade + 1)}
                     aria-label="Aumentar"
                   >
