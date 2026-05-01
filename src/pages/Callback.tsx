@@ -1,12 +1,10 @@
 import { useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useAuth } from '../context/AuthContext'
 
 
 export default function Callback() {
     const navigate = useNavigate()
     const executado = useRef(false)
-      const { login } = useAuth()
 
 
 
@@ -36,7 +34,6 @@ export default function Callback() {
             })
             
             .catch(() => navigate('/login'))  
-            login({ nome: 'João', email: 'joao@email.com' })
     }, [navigate])
 
     return <p style={{ padding: '2rem' }}>Autenticando...</p>
