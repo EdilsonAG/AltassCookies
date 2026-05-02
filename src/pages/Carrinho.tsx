@@ -2,8 +2,7 @@ import { Link } from 'react-router-dom'
 import { Trash2, Plus, Minus, ShoppingBag, ArrowRight } from 'lucide-react'
 import { useCart } from '../context/CartContext'
 import './Carrinho.css'
-import { useEffect, useState } from 'react'
-
+ 
 export default function Carrinho() {
   const { itens, totalPreco, removerItem, editarQuantidade, loading } = useCart()
 

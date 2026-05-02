@@ -8,8 +8,7 @@ export default function Callback() {
 
 
 
-    // Callback.tsx
-    useEffect(() => {
+     useEffect(() => {
         if (executado.current) return
         executado.current = true
         const params = new URLSearchParams(window.location.search)
